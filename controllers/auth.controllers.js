@@ -1,4 +1,3 @@
-const md5 = require("md5")
 const Users = require("../models/users.models")
 
 module.exports.login = (req, res) => {
