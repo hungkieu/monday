@@ -6,14 +6,16 @@
   "author": "hungkieu.h12@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "express": "^4.17.0",
+    "mongoose": "^5.5.10",
     "nodemon": "^1.19.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "dev": "yarn nodemon server.js localhost 8000",
+    "dev": "yarn nodemon server.js",
     "build": "webpack --mode production"
   },
   "devDependencies": {
