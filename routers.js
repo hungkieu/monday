@@ -4,6 +4,12 @@ const app = express();
 const routers = express.Router();
 const adminRouters = express.Router();
 
+function ctl(ctl_act) {
+  var [ctl, act] = ctl_act.split('@');
+  controller = require('./controllers/' + ctl);
+  return controller[act];
+}
+
 const logged = function(req, res, next) {
   if(req.signedCookies.user != undefined) {
     next();
@@ -12,7 +18,8 @@ const logged = function(req, res, next) {
   }
 }
 
-routers.get('/', (req, res) => res.render('home/index', {title: 'Monday'}));
+routers.get('/', ctl('HomeController@index'));
+routers.get('/design', (req, res) => res.render('home/design'));
 
 // namespace admin
 routers.use('/admin', adminRouters);

@@ -2,3 +2,144 @@
   margin: 0;
   padding: 0;
 }
+
+$color-text: #333;
+$blue: rgb(9, 132, 227);
+$primary: $blue;
+$background: rgb(242, 244, 246);
+
+html {
+  width: 100%;
+}
+
+body {
+  background: $background;
+  font-size: 20px;
+  width: 100%;
+  color: $color-text;
+  font-family: 'Lora', serif;
+  padding-right: 17px;
+  overflow-x: hidden;
+}
+
+.lora {
+  font-family: 'Lora', serif;
+}
+
+.open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.logo-font {
+  font-family: 'Kodchasan', sans-serif;
+}
+
+h1,h2,h3,h4,h5 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.bg-color-text {
+  background: $color-text;
+}
+
+.bg-blue {
+ background: $blue;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+@for $i from 1 through 10 {
+  .w-#{ $i * 50 } { width: #{ $i * 50 }px; }
+}
+
+@for $i from 1 through 10 {
+  .h-#{ $i * 50 } { height: #{ $i * 50 }px; }
+}
+
+.monday-index {
+  @media screen and (min-width: 1024px) {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+
+    .gold {
+      width: 960px;
+      height: calc(960px / 1.618);
+      display: grid;
+      grid-template-columns: 8fr 5fr;
+
+      .g-8 {
+      }
+
+      .g-5 {
+        display: grid;
+        grid-template-rows: 5fr 3fr;
+
+        .g-5-5 {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          grid-template-rows: repeat(8, 1fr);
+          color: white;
+          cursor: default;
+
+          .month {
+            grid-column-start: 1;
+            grid-column-end: 8;
+          }
+
+          .t, .th, .tc {
+            font-size: 16px;
+          }
+
+          .t {
+            color: rgb(166, 166, 166);
+          }
+        }
+
+        .g-5-3 {
+          display: grid;
+          grid-template-columns: 2fr 3fr;
+
+          .g-3-2 {
+            display: grid;
+            grid-template-rows: 1fr 2fr;
+
+            .g-2-1 {
+              display: flex;
+              align-items: flex-end;
+              justify-content: flex-start;
+              font-size: 32px;
+              font-weight: bold;
+              a {
+                text-decoration: none;
+                color: white;
+              }
+              a::first-letter {
+                color: $primary;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.cont {
+  margin: 0 auto;
+  width: 960px;
+}
