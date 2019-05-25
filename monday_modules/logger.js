@@ -29,6 +29,12 @@ class Logger {
     if (console) this.t(msg);
     fs.appendFile('./logs/server.log', '\n' + this.text_log(msg), err => err && this.t(err));
   }
+
+  middleware(req, res, next) {
+    var mess = `${req.method} - ${req.url} - PARAMS: ${JSON.stringify(req.method == 'GET' ? req.query : req.body)}`;
+    this.log(mess);
+    next();
+  }
 }
 
 module.exports = new Logger

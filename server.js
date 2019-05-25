@@ -12,14 +12,34 @@ db.on('error', (err) => {
   console.log('DB connection error:', err.message);
 })
 
-// log module
-const logger = require('./monday_modules/logger')
-
+const path = require('path');
 const express = require('express');
 const app = express();
-const port = ENV.PORT || 8000;
+const port = ENV.PORT || 3000;
 
-app.get('/', (req, res) => res.send('Hello Monday'));
+// body-parser
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// cookieParser
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// log module
+const logger = require('./monday_modules/logger');
+app.use(logger.middleware.bind(logger));
+
+// static files
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// view engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+// routers
+const routers = require('./routers');
+app.use(routers);
 
 app.listen(port, () => {
   logger.log(`Start server, listening on port ${port}!`);
