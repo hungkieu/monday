@@ -1,0 +1,9 @@
+extends ../../layouts/admin.pug
+block body
+  h1 Đăng nhập vào trang quản lý
+  form(action="/admin/login" method="post")
+    label Tên đăng nhập
+    input(type="text" name="username")
+    label Mật khẩu
+    input(type="password" name="password")
+    button(type="submit") Đăng nhập
