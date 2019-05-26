@@ -5,6 +5,7 @@ const routers = express.Router();
 const adminRouters = express.Router();
 
 function ctl(ctl_act) {
+  console.log(ctl_act)
   var [ctl, act] = ctl_act.split('@');
   controller = require('./controllers/' + ctl);
   return controller[act];
@@ -28,5 +29,7 @@ adminRouters.get('/login', (req, res) => res.render('admin/auth/login'));
 adminRouters.post('/login', (req, res) => {
   res.send(JSON.stringify(req.body));
 });
+adminRouters.get('/register', ctl('AdminAuth.Controller@register'))
+adminRouters.post('/register', ctl('AdminAuth.Controller@postRegister'))
 
 module.exports = routers;

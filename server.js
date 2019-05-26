@@ -18,13 +18,17 @@ const app = express();
 const port = ENV.PORT || 3000;
 
 // body-parser
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // cookieParser
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
+// csurf
+const csurf = require('csurf')
+app.use(csurf({ cookie: true }))
 
 // log module
 const logger = require('./monday_modules/logger');
