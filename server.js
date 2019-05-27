@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // cookieParser
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+app.use(cookieParser(ENV.SESSION_SECRET));
 
 // csurf
 const csurf = require('csurf')

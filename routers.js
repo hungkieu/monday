@@ -12,7 +12,9 @@ function ctl(ctl_act) {
 }
 
 const logged = function(req, res, next) {
-  if(req.signedCookies.user != undefined) {
+  console.log(req.signedCookies.userId)
+
+  if(req.signedCookies.userId != undefined) {
     next();
   } else {
     res.redirect('/admin/login');
@@ -24,12 +26,14 @@ routers.get('/design', (req, res) => res.render('home/design'));
 
 // namespace admin
 routers.use('/admin', adminRouters);
-adminRouters.get('/', logged, (req, res) => res.render('admin/dashboard/index'));
-adminRouters.get('/login', (req, res) => res.render('admin/auth/login'));
-adminRouters.post('/login', (req, res) => {
-  res.send(JSON.stringify(req.body));
-});
+adminRouters.get('/dashboard', logged, (req, res) => res.render('admin/dashboard/index'));
+// Login
+adminRouters.get('/login', ctl('AdminAuth@login'));
+adminRouters.post('/login', ctl('AdminAuth@postLogin'));
+// register
 adminRouters.get('/register', ctl('AdminAuth@register'))
 adminRouters.post('/register', ctl('AdminAuth@postRegister'))
+// Logout
+adminRouters.get('/logout', ctl('AdminAuth@logout'))
 
 module.exports = routers;
