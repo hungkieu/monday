@@ -3,5 +3,35 @@ head(lang="vi")
   meta(charset="utf-8")
   meta(name="viewport" content="width=device-width, initial-scale=1")
   title #{title}
+  link(rel="stylesheet" type="text/css" href="/public/admin.css")
+  link(rel="stylesheet", href="/public/css/font awesome/all.min.css")
+  block style
 body
+  .wrapper
+    .box.header Header
+    .box.sidebar
+      .logo
+        h3 Monday
+      .avatar
+        img(src="/public/images/avatar.jpg", alt="avatar")
+        span Hello, Cuong
+      .menu
+        p Menu
+        .side-menu
+          .collapse-menu
+            button collapse
+            ul
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+    .box.content Content
+      br
+      span More content than we had before so this column is now quite tall.
+    .box.footer Footer
   block body
+
+  script(src="/public/js/font awesome/all.min.js")
+  block js

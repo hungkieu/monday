@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'open-sans-font';
+  src: url('./fonts/Open_Sans/OpenSans-Regular.ttf')
+}
+
+body {
+  font-family: 'open-sans-font';
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}
+
+.header {
+  grid-area: header;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: 20% 80% auto;
+  grid-template-areas:
+    "sidebar header header"
+    "sidebar content content"
+    "footer  footer  footer";
+  background-color: #fff;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  padding: 10px;
+}
+
+.header,
+.footer {
+  background-color: #999;
+}
+
+.wrapper .box .avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+.wrapper .box .avatar span {
+  vertical-align: middle;
+}
+
+.wrapper .sidebar .side-menu button {
+  width: 100%;
+  border: none;
+  line-height: 30px;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wrapper .sidebar .side-menu ul {
+  padding-left: 0;
+}
+
+.wrapper .sidebar .side-menu ul > li {
+  list-style: none;
+  padding: 5px;
+}
+
+.wrapper .sidebar .side-menu ul a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.wrapper .sidebar .side-menu .collapse-menu ul {
+  display: none;
+  overflow: hidden;
+}
