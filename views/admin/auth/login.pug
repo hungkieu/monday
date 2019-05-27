@@ -1,7 +1,10 @@
 extends ../../layouts/admin.pug
 block body
   h1 Đăng nhập vào trang quản lý
+  if error
+    p= error
   form(action="/admin/login" method="post")
+    input(type='hidden' name='_csrf' value=csrfToken)
     label Tên đăng nhập
     input(type="text" name="username")
     label Mật khẩu

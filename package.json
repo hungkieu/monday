@@ -6,7 +6,9 @@
   "author": "hungkieu.h12@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "cookie-parser": "^1.4.4",
+    "csurf": "^1.10.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
     "mongoose": "^5.5.10",
