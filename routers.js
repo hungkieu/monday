@@ -29,7 +29,7 @@ adminRouters.get('/login', (req, res) => res.render('admin/auth/login'));
 adminRouters.post('/login', (req, res) => {
   res.send(JSON.stringify(req.body));
 });
-adminRouters.get('/register', ctl('AdminAuth.Controller@register'))
-adminRouters.post('/register', ctl('AdminAuth.Controller@postRegister'))
+adminRouters.get('/register', ctl('AdminAuth@register'))
+adminRouters.post('/register', ctl('AdminAuth@postRegister'))
 
 module.exports = routers;
