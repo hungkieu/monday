@@ -1,39 +1,39 @@
 const express = require('express');
 const path = require('path');
-const app = express();
+const fs = require("fs");
 const routers = express.Router();
 const adminRouters = express.Router();
 
+var controllerPath = path.join(__dirname, "controllers");
+fs.readdirSync(controllerPath).forEach(function (file) {
+  let name = file.replace('.js', '');
+  global[name] = require("./controllers/" + file);
+});
+
 function ctl(ctl_act) {
-  console.log(ctl_act)
   var [ctl, act] = ctl_act.split('@');
-  controller = require('./controllers/' + ctl);
-  return controller[act];
+  return global[ctl][act];
 }
 
 const logged = function(req, res, next) {
-  console.log(req.signedCookies.userId)
-
-  if(req.signedCookies.userId != undefined) {
-    next();
-  } else {
-    res.redirect('/admin/login');
-  }
+  if(req.signedCookies.userId != undefined) next();
+  else res.redirect('/admin/login');
 }
 
-routers.get('/', ctl('HomeController@index'));
+routers.get('/', ctl('Home@index'));
 routers.get('/design', (req, res) => res.render('home/design'));
 
 // namespace admin
 routers.use('/admin', adminRouters);
+adminRouters.get('/', logged, (req, res) => res.redirect('admin/dashboard'));
 adminRouters.get('/dashboard', logged, (req, res) => res.render('admin/dashboard/index'));
 // Login
 adminRouters.get('/login', ctl('AdminAuth@login'));
 adminRouters.post('/login', ctl('AdminAuth@postLogin'));
 // register
-adminRouters.get('/register', ctl('AdminAuth@register'))
-adminRouters.post('/register', ctl('AdminAuth@postRegister'))
+adminRouters.get('/register', ctl('AdminAuth@register'));
+adminRouters.post('/register', ctl('AdminAuth@postRegister'));
 // Logout
-adminRouters.get('/logout', ctl('AdminAuth@logout'))
+adminRouters.get('/logout', ctl('AdminAuth@logout'));
 
 module.exports = routers;
