@@ -15,7 +15,8 @@
     "nodemon": "^1.19.0",
     "pug": "^2.0.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "simplemde": "^1.11.2"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
