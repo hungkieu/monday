@@ -84,3 +84,7 @@ body {
   display: none;
   overflow: hidden;
 }
+
+.dropdown {
+  display: block !important;
+}
