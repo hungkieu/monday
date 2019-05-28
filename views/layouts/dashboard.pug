@@ -1,0 +1,72 @@
+doctype html
+head(lang="vi")
+  meta(charset="utf-8")
+  meta(name="viewport" content="width=device-width, initial-scale=1")
+  title #{title}
+  link(rel="stylesheet", href="/public/css/font awesome/all.min.css")
+  link(rel="stylesheet" type="text/css" href="/public/admin.css")
+  block style
+body
+  .wrapper
+    .box.header
+      span Monday
+      .user-profile
+        a Cuong
+        .list-action
+          a Profile
+          a(href='/admin/logout') Logout
+    .box.sidebar
+      .logo
+      .avatar
+        img(src="/public/images/avatar.jpg", alt="avatar")
+        span Hello, Cuong
+      .menu
+        p Menu
+        .side-menu
+          .collapse-menu
+            button Post
+            ul
+              li
+                a(href="/admin/tags") Tags
+              li
+                a(href="/admin/categories") Thể loại
+              li
+                a(href="/admin/posts") Bài đăng
+        .side-menu
+          .collapse-menu
+            button collapse
+            ul
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+        .side-menu
+          .collapse-menu
+            button collapse
+            ul
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+        .side-menu
+          .collapse-menu
+            button collapse
+            ul
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+              li
+                a(href="#") link
+    .box.content
+      block content
+    .box.footer Footer
+
+  block script
+    script(src="/public/js/jquery-3.4.1.min.js")
+    script(src="/public/js/font awesome/all.min.js")
+    script(src="/public/js/admin.js")

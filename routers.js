@@ -35,5 +35,11 @@ adminRouters.get('/register', ctl('AdminAuth@register'))
 adminRouters.post('/register', ctl('AdminAuth@postRegister'))
 // Logout
 adminRouters.get('/logout', ctl('AdminAuth@logout'))
+// Post
+adminRouters.get('/posts', ctl('Post@postManager'))
+// Tags
+adminRouters.get('/tags', ctl('Tags@tagManager'))
+// Categories
+adminRouters.get('/categories', ctl('Category@categoryManager'))
 
 module.exports = routers;
