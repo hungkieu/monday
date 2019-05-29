@@ -15,27 +15,6 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-// userSchema.statics.authenticate = (username, password, callback) => {
-//   User.findOne({ username: username })
-//     .exec((err, user) => {
-//       if (err) {
-//         return callback(err)
-//       } else if (!user) {
-//         let err = new Error('User not exist')
-//         err.status = 401
-
-//         return callback(err)
-//       }
-//       bcrypt.compare(password, user.password, (err, res) => {
-//         if (err) {
-//           return callback(err)
-//         } else {
-//           return callback(null, user)
-//         }
-//       })
-//     })
-// }
-
 const User = new mongoose.model('User', userSchema, 'users')
 
 module.exports = User
