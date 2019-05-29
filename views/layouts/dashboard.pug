@@ -2,16 +2,20 @@ doctype html
 head(lang="vi")
   meta(charset="utf-8")
   meta(name="viewport" content="width=device-width, initial-scale=1")
+  meta(name='_csrf', content='#{csrfToken}')
   title #{title}
   link(rel="stylesheet", href="/public/css/font awesome/all.min.css")
   link(rel="stylesheet" type="text/css" href="/public/admin.css")
+  link(rel="stylesheet", href="/public/css/toastr.min.css")
+  link(rel="stylesheet", href="/public/css/bootstrap-tagsinput.css")
+  link(rel="stylesheet", href="/public/css/bootstrap.min.css")
   block style
 body
   .wrapper
     .box.header
       span Monday
       .user-profile
-        a Cuong
+        a=firstName
         .list-action
           a Profile
           a(href='/admin/logout') Logout
@@ -19,7 +23,8 @@ body
       .logo
       .avatar
         img(src="/public/images/avatar.jpg", alt="avatar")
-        span Hello, Cuong
+        span Hello, &nbsp;
+          span=firstName
       .menu
         p Menu
         .side-menu
@@ -32,6 +37,8 @@ body
                 a(href="/admin/categories") Thể loại
               li
                 a(href="/admin/posts") Bài đăng
+              li
+                a(href="/admin/list-post") Danh sách bài đăng
         .side-menu
           .collapse-menu
             button collapse
@@ -68,6 +75,11 @@ body
 
 
   block script
-    script(src="/public/js/jquery-3.4.1.min.js")
+    script(src="/public/js/jquery.min.js")
     script(src="/public/js/font awesome/all.min.js")
+    script(src="/public/js/toastr.min.js")
+    script(src="/public/js/bootstrap-tagsinput.js")
+    script(src="/public/js/bootstrap.min.js")
+    //- script(src="/public/js/popper.min.js")
+    script(src="/public/js/typeahead.bundle.js")
     script(src="/public/js/admin.js")

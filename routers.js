@@ -3,6 +3,10 @@ const path = require('path');
 const fs = require("fs");
 const routers = express.Router();
 const adminRouters = express.Router();
+const multer = require('multer')
+const User = require('./models/users')
+
+const upload = multer()
 
 var controllerPath = path.join(__dirname, "controllers");
 fs.readdirSync(controllerPath).forEach(function (file) {
@@ -16,8 +20,13 @@ function ctl(ctl_act) {
 }
 
 const logged = function(req, res, next) {
-  if(req.signedCookies.userId != undefined) next();
-  else res.redirect('/admin/login');
+  if(req.signedCookies.userId != undefined) {
+    res.locals.userId = req.signedCookies.userId
+    next();
+  }
+  else {
+    res.redirect('/admin/login');
+  }
 }
 
 routers.get('/', ctl('Home@index'));
@@ -26,7 +35,12 @@ routers.get('/design', (req, res) => res.render('home/design'));
 // namespace admin
 routers.use('/admin', adminRouters);
 adminRouters.get('/', logged, (req, res) => res.redirect('admin/dashboard'));
-adminRouters.get('/dashboard', logged, (req, res) => res.render('admin/dashboard/index'));
+adminRouters.get('/dashboard', logged, async (req, res) => {
+  const user = await User.findById(res.locals.userId)
+  res.render('layouts/dashboard', {
+    firstName: user.first_name
+  })
+});
 // Login
 adminRouters.get('/login', ctl('AdminAuth@login'));
 adminRouters.post('/login', ctl('AdminAuth@postLogin'));
@@ -34,16 +48,19 @@ adminRouters.post('/login', ctl('AdminAuth@postLogin'));
 adminRouters.get('/register', ctl('AdminAuth@register'));
 adminRouters.post('/register', ctl('AdminAuth@postRegister'));
 // Logout
-<<<<<<< HEAD
 adminRouters.get('/logout', ctl('AdminAuth@logout'))
 // Post
 adminRouters.get('/posts', ctl('Post@postManager'))
+adminRouters.post('/posts', upload.array(), ctl('Post@createPost'))
+adminRouters.get('/list-post', ctl('Post@listPost'))
+adminRouters.post('/list-post', upload.array(), ctl('Post@onePost'))
 // Tags
 adminRouters.get('/tags', ctl('Tags@tagManager'))
+adminRouters.post('/tags', upload.array(), ctl('Tags@postTag'))
+adminRouters.get('/data-tags', ctl('Tags@dataTags'))
 // Categories
 adminRouters.get('/categories', ctl('Category@categoryManager'))
-=======
-adminRouters.get('/logout', ctl('AdminAuth@logout'));
->>>>>>> 7bd2dc9a2be617874b59d0642efa5eb6a48acbd9
+adminRouters.post('/categories', upload.array(), ctl('Category@postCategory'))
+adminRouters.get('/data-categories', ctl('Category@categoryData'))
 
 module.exports = routers;

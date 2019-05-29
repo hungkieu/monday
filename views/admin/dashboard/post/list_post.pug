@@ -1,0 +1,13 @@
+extend ../../../layouts/dashboard.pug
+block content
+  h1 Danh sách bài đăng
+  <meta name="csrf-token" content="">
+  input(type="hidden", name="_csrf", value=csrfToken)
+  if posts
+    each post in posts
+      p
+        a#view-post(data-id=post.id)= post.title
+  #post
+block append script
+  script(src="/public/js/list_post.js")
+  script(src="/public/js/marked.min.js")

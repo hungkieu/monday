@@ -1,3 +1,12 @@
 extend ../../../layouts/dashboard.pug
 block content
-  h1 Categories
+  h1 Thể  loại
+  .add-category
+    <meta name="csrf-token" content="">
+    input(type="hidden", name="_csrf", value=csrfToken)
+    label(for="category") Thêm thể loại &nbsp;
+    input#category(type="text", name="category")
+    button#add-category Thêm
+
+block append script
+  script(src="/public/js/categories.js")

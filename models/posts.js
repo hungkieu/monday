@@ -4,7 +4,7 @@ const Tags = require('./tags')
 const User = require('./users')
 
 const postSchema = new mongoose.Schema({
-  titile: {
+  title: {
     type: String,
     required: true
   },
@@ -13,13 +13,13 @@ const postSchema = new mongoose.Schema({
     required: true
   },
   tags: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Tags
+    type: String,
+    trim: true
   }],
-  categories: [{
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Categories
-  }],
+  },
   postBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: User

@@ -2,12 +2,13 @@ $(document).ready(function () {
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $("input[name=_csrf]").val() }
   });
-  $("#add-tag").on("click", function () {
-    let tag = ($("#tag-name").val()).trim()
-    if (tag !== "") {
+  $("#add-category").on("click", function () {
+    let category = ($("#category").val()).trim()
+    console.log(category !== "")
+    if (category !== "") {
       let formData = new FormData()
       formData.append("_csrf", $("input[name=_csrf]").val())
-      formData.append("title", tag)
+      formData.append("title", category)
       $.ajax({
         contentType: false,
         processData: false,
@@ -19,6 +20,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           toastr.remove()
+          console.log(response)
           if (response.message === "done") {
             toastr.success("Thêm thành công")
           } else {
@@ -27,7 +29,7 @@ $(document).ready(function () {
         }
       })
     } else {
-      toastr.warning("Chưa điền tên tag")
+      toastr.warning("Chưa điền tên thể loại")
     }
   })
 })
