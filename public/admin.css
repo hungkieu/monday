@@ -142,3 +142,12 @@ body {
   background-color: #444;
   color: #fff;
 }
+
+.wrapper .content .ql-snow {
+  background: white;
+  color: #334;
+}
+
+#editor {
+  min-height: 400px;
+}

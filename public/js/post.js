@@ -2,39 +2,10 @@ $(document).ready(function () {
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $("input[name=_csrf]").val() }
   });
-  let simplemde = new SimpleMDE({
-    element: $("#post")[0],
-    blockStyles: {
-      bold: "__",
-      italic: "_"
-    },
-    forceSync: true,
-    indentWithTabs: false,
-    insertTexts: {
-      horizontalRule: ["", "\n\n-----\n\n"],
-      image: ["![](http://", ")"],
-      link: ["[", "](http://)"],
-      table: ["", "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"],
-    },
-    lineWrapping: false,
-    placeholder: "Nội dung bài viết...",
-    previewRender: function (plainText) {
-      return customMarkdownParser(plainText)
-    },
-    previewRender: function (plainText, preview) {
-      setTimeout(function () {
-        preview.innerHTML = customMarkdownParser(plainText)
-      }, 250);
-      return "Loading..."
-    },
-    renderingConfig: {
-      singleLineBreaks: false,
-      codeSyntaxHighlighting: true
-    },
-    showIcons: ["code", "table"],
-    styleSelectedText: false,
-    tabSize: 2,
-  })
+
+  window.quill = new Quill('#editor', {
+    theme: 'snow'
+  });
 
   // Tags
   let tagsName = new Bloodhound({
@@ -83,7 +54,7 @@ $(document).ready(function () {
   // Add post
   $("#add-post").on("click", function () {
     const title = $("#post-title").val()
-    const content = simplemde.value()
+    const content = quill.root.innerHTML;
     const tags = $("#tags").tagsinput("items")
     const category = $("#categories").val()
     console.log(category)
