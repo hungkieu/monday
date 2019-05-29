@@ -8,29 +8,29 @@ body {
 }
 
 .sidebar {
-  grid-area: sidebar;
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
 }
 
 .content {
-  grid-area: content;
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
 }
 
 .header {
-  grid-area: header;
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
 }
 
 .footer {
-  grid-area: footer;
+  grid-column: 1 / 4;
+  grid-row: 3 / 4;
 }
 
 .wrapper {
   display: grid;
   grid-gap: 1px;
   grid-template-columns: 20% 80% auto;
-  grid-template-areas:
-    "sidebar header header"
-    "sidebar content content"
-    "footer  footer  footer";
   background-color: #fff;
 }
 
@@ -45,6 +45,7 @@ body {
   background-color: #999;
 }
 
+/* Side bar */
 .wrapper .box .avatar img {
   width: 50px;
   height: 50px;
@@ -57,6 +58,10 @@ body {
   vertical-align: middle;
 }
 
+.wrapper .sidebar .side-menu {
+  margin: 5px 0;
+}
+
 .wrapper .sidebar .side-menu button {
   width: 100%;
   border: none;
@@ -66,16 +71,29 @@ body {
   cursor: pointer;
 }
 
+.wrapper .sidebar .side-menu button:hover {
+  background-color: #999;
+}
+
 .wrapper .sidebar .side-menu ul {
   padding-left: 0;
+  margin-top: 1px;
 }
 
 .wrapper .sidebar .side-menu ul > li {
+  margin-bottom: 2px;
+  background: #636060;
   list-style: none;
   padding: 5px;
 }
 
+.wrapper .sidebar .side-menu ul > li:hover {
+  background-color: #999;
+  color: #000;
+}
+
 .wrapper .sidebar .side-menu ul a {
+  display: block;
   text-decoration: none;
   color: #fff;
 }
@@ -83,4 +101,44 @@ body {
 .wrapper .sidebar .side-menu .collapse-menu ul {
   display: none;
   overflow: hidden;
+}
+
+.dropdown {
+  display: block !important;
+  transition: 1s;
+}
+
+/* Header */
+.wrapper .header {
+  display: flex;
+}
+
+.wrapper .header .user-profile {
+  margin-left: auto;
+  margin-right: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+  position: relative;
+}
+
+.wrapper .header a {
+  display: block;
+}
+
+.wrapper .header .list-action {
+  position: absolute;
+  display: none;
+}
+
+.wrapper .header .user-profile:hover .list-action{
+  display: block;
+  background-color: rgb(204, 197, 197);
+  color: #000;
+  padding: 2px 10px;
+  z-index: 10;
+}
+
+.wrapper .header a:hover {
+  background-color: #444;
+  color: #fff;
 }
