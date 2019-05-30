@@ -3,7 +3,25 @@ $(document).ready(function () {
     headers: { 'X-CSRF-Token': $("input[name=_csrf]").val() }
   });
 
+  var toolbarOptions = {
+    handlers: {
+      'link': function (value) {
+        if (value) {
+          var href = prompt('Enter the URL', 'https://');
+          this.quill.format('link', href);
+          var range = quill.getSelection();
+          this.quill.insertText(range.index, href, true);
+        } else {
+          this.quill.format('link', false);
+        }
+      }
+    }
+  }
+
   window.quill = new Quill('#editor', {
+    modules: {
+      toolbar: toolbarOptions
+    },
     theme: 'snow'
   });
 
