@@ -11,13 +11,11 @@ module.exports.postManager = (req, res) => {
 module.exports.createPost = async (req, res) => {
   const { _csrf, ...postData } = req.body
   console.log(postData)
-  const tags = postData.tags.split(",")
   let userId = req.signedCookies.userId
   if (postData.title && postData.content && postData.category  && userId) {
     let newPost = new Post({
       title: postData.title,
       content: postData.content,
-      tags: [...tags],
       category: postData.category,
       postBy: userId
     })

@@ -3,6 +3,10 @@
   src: url('./fonts/Open_Sans/OpenSans-Regular.ttf')
 }
 
+* {
+  font-size: 16px;
+}
+
 html {
   height: 100%;
 }
@@ -179,4 +183,23 @@ body {
 
 .auth-login button {
   margin-top: 10px;
+}
+
+.box.content form label {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.box.content form input {
+  color: #334;
+  margin: 10px 0;
+  width: 100%;
+  padding: 5px;
+}
+
+.box.content form button {
+  padding: 5px;
+  border: none;
+  background: #eee;
+  color: #334;
 }
