@@ -1,28 +1,52 @@
 $(document).ready(function () {
   $.ajaxSetup({
-    headers: { 'X-CSRF-Token': $("input[name=_csrf]").val() }
+    headers: { 'CSRF-Token': $("meta[name=_csrf]").attr('content') }
   });
 
-  var toolbarOptions = {
-    handlers: {
-      'link': function (value) {
-        if (value) {
-          var href = prompt('Enter the URL', 'https://');
-          this.quill.format('link', href);
-          var range = quill.getSelection();
-          this.quill.insertText(range.index, href, true);
-        } else {
-          this.quill.format('link', false);
-        }
+  var toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    ['link', 'image']
+  ]
+
+  let BlockEmbed = Quill.import('blots/block/embed');
+
+  class ImageBlot extends BlockEmbed {
+    static create(value) {
+      let node = super.create();
+      Object.keys(value).forEach((attr) => {
+        node.setAttribute(attr, value[attr]);
+      });
+      return node;
+    }
+
+    static value(node) {
+      var attrs = node.attributes;
+      var output = {};
+      for(var i = attrs.length - 1; i >= 0; i--) {
+        output[attrs[i].name] = attrs[i].value;
       }
+      output;
+      return output;
     }
   }
+  ImageBlot.blotName = 'image';
+  ImageBlot.tagName = 'img';
+
+  Quill.register(ImageBlot);
 
   window.quill = new Quill('#editor', {
     modules: {
       toolbar: toolbarOptions
     },
     theme: 'snow'
+  });
+
+  var toolbar = quill.getModule('toolbar');
+  toolbar.addHandler('image', function() {
+    var range = quill.getSelection();
+    var href = prompt('Image URL', 'https://');
+    this.quill.insertEmbed(range.index, 'image', {src: href, width: '100px', height: '100px'});
   });
 
   // Tags
@@ -70,19 +94,17 @@ $(document).ready(function () {
   })
 
   // Add post
-  $("#add-post").on("click", function () {
+  $("#add-post").on("click", function (e) {
+    e.preventDefault();
     const title = $("#post-title").val()
     const content = quill.root.innerHTML;
-    const tags = $("#tags").tagsinput("items")
     const category = $("#categories").val()
     console.log(category)
     if (title.trim() && content.trim() && category.trim()) {
       let formData = new FormData()
       formData.append("title", title)
       formData.append("content", content)
-      formData.append("tags", tags)
       formData.append("category", category)
-      formData.append("_csrf", $("input[name=_csrf]").val())
       $.ajax({
         method: "post",
         url: location.url,
@@ -93,7 +115,6 @@ $(document).ready(function () {
           toastr.info("Đang gửi...", { timeOut: 0, extendedTimeOut: 0 })
         },
         success: function (response) {
-          console.log(response)
           toastr.remove()
           if (response.message === "done") {
             toastr.success("Thêm thành công")
