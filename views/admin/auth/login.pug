@@ -1,13 +1,36 @@
 extends ../../layouts/admin.pug
 block body
-  .auth-login
-    h1 Đăng nhập vào trang quản lý
-    if error
-      p= error
-    form(action="/admin/login" method="post")
-      input(type='hidden' name='_csrf' value=csrfToken)
-      label Tên đăng nhập
-      input(type="text" name="username")
-      label Mật khẩu
-      input(type="password" name="password")
-      button(type="submit") Đăng nhập
+  
+  .auth-login.h-100
+    .limit.pt-5
+      .p-5
+        .bg-white.shadow.w-100
+          .row.justify-content-center.mx-0
+            .col-lg-5.pt-5.px-4.text-center.banner
+              .pt-4
+                h2.text-center Đăng nhập
+                div.my-5 load
+                img(src=('../../../public/images/welcome-back.gif')).img-welcome-back
+            
+            .col-lg-7.col-10.p-5
+              .py-4
+                
+                form(action="/admin/login" method="post")
+                  input(type='hidden' name='_csrf' value=csrfToken).input-auth-login
+                  p  
+                    label Tên đăng nhập
+                  
+                    input(type="text" name="username").input-auth-login
+                  p  
+                    label Mật khẩu
+                    input(type="password" name="password").input-auth-login
+                  
+                  if error
+                    p.error= error
+
+                  div.pt-4
+                    button(type="submit").bg-blue Đăng nhập
+                    span.ml-3 
+                      small hoặc
+                      a(href="/admin/register").ml-1  Đăng ký
+

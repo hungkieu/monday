@@ -1,22 +1,38 @@
 extends ../../layouts/admin.pug
 block body
-  .auth-login
-    h1 Demo chức năng đăng ký
-    if error
-      p= error
-    form(action='/admin/register' method='post')
-      input(type='hidden' name='_csrf' value=csrfToken)
-      p
-        label(for='firstname') Firstname
-        input(type='text' name='firstname' id='firstname')
-      p
-        label(for='lastname') Lastname
-        input(type='text' name='lastname' id='lastname')
-      p
-        label(for='username') Username
-        input(type='text' name='username' id='username')
-      p
-        label(for='password') Password
-        input(type='password' name='password' id='password')
 
-      input(type='submit' value='register')
+  .auth-login.h-100
+    .limit.pt-5
+      .p-5
+        .bg-white.shadow.w-100
+          .row.justify-content-center.mx-0
+            .col-lg-5.py-5.px-4.text-center.banner
+              h2.text-center Sign up
+              img(src=('../../../public/images/modern-welcome-composition-with-flat-design_23-2147916832.jpg')).img-welcome.my-4
+              div load
+            .col-lg-7.col-10.p-5
+              
+              form(action='/admin/register' method='post')
+                input(type='hidden' name='_csrf' value=csrfToken)
+                p
+                  label(for='firstname') Firstname
+                  input(type='text' name='firstname' id='firstname').input-auth-login
+                p
+                  label(for='lastname') Lastname
+                  input(type='text' name='lastname' id='lastname').input-auth-login
+                p
+                  label(for='username') Username
+                  input(type='text' name='username' id='username').input-auth-login
+                p
+                  label(for='password') Password
+                  input(type='password' name='password' id='password').input-auth-login
+                
+                if error
+                  p.error= error
+
+                div
+                  input(type='submit' value='register').input-btn-auth-login.bg-blue
+                  span.ml-3 
+                    small or
+                    a(href="/admin/login").ml-1  Login
+
