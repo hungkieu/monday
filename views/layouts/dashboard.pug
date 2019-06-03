@@ -2,7 +2,7 @@ doctype html
 head(lang="vi")
   meta(charset="utf-8")
   meta(name="viewport" content="width=device-width, initial-scale=1")
-  meta(name='_csrf', content='#{csrfToken}')
+  meta(name='_csrf', content=csrfToken)
   title #{title}
   link(rel="stylesheet", href="/public/css/font awesome/all.min.css")
   link(rel="stylesheet" type="text/css" href="/public/admin.css")
@@ -19,14 +19,13 @@ body
         .list-action
           a Profile
           a(href='/admin/logout') Logout
-    .box.sidebar
+    .sidebar
       .logo
       .avatar
         img(src="/public/images/avatar.jpg", alt="avatar")
         span Hello, &nbsp;
           span=firstName
       .menu
-        p Menu
         .side-menu
           .collapse-menu
             button Post
