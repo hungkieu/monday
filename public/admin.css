@@ -11,8 +11,17 @@ html {
   height: 100%;
 }
 
+* {
+  font-size: 16px;
+}
+
+html {
+  height: 100%;
+}
+
 body {
   height: 100%;
+
   font-family: "open-sans-font";
 }
 
@@ -20,6 +29,7 @@ body {
   grid-row: 2 / 3;
   grid-column: 1 / 2;
   border-right: 1px solid #fff;
+
   background-color: #263544;
 }
 
@@ -184,6 +194,7 @@ body {
   height: 100%;
   min-height: 500px;
 }
+
 .auth-login {
   background: url("../public//images/bg1.jpg");
   background-size: cover;
@@ -249,6 +260,7 @@ body {
 .box.content {
   background: #f2f7fb;
 }
+
 .box.content form label {
   margin: 10px 0;
   width: 100%;
