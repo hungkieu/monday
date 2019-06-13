@@ -4,7 +4,6 @@ $(document).ready(function () {
   });
   $("#add-category").on("click", function () {
     let category = ($("#category").val()).trim()
-    console.log(category !== "")
     if (category !== "") {
       let formData = new FormData()
       formData.append("_csrf", $("input[name=_csrf]").val())
@@ -30,6 +29,55 @@ $(document).ready(function () {
       })
     } else {
       toastr.warning("Chưa điền tên thể loại")
+    }
+  })
+
+  // Vuejs Zone
+  new Vue({
+    el: "#list-category",
+    data: {
+      searchText: "",
+      url: "http://localhost:8080/admin/search-categories",
+      listCategories: [],
+      selectedData: []
+    },
+    methods: {
+      clickDelete: (id) => {
+        $.ajax({
+          method: "delete",
+          url: `http://localhost:8080/admin/categories/${id}`,
+          data: {
+            _csrf: $("input[name=_csrf]").val()
+          },
+          success: res => {
+            console.log(res)
+            this.loadCategories()
+          }
+        })
+      },
+      loadCategories: () => {
+        $.ajax({
+          method: "get",
+          url: "http://localhost:8080/admin/data-categories",
+          success: res => {
+            this.listCategories = res.results
+          }
+        })
+      }
+    },
+    beforeCreate: function() {
+      $.ajax({
+        method: "get",
+        url: "http://localhost:8080/admin/data-categories",
+        success: res => {
+          this.listCategories = res.results
+        }
+      })
+    },
+    watch: {
+      searchText: function(value) {
+        this.searchCategories()
+      }
     }
   })
 })

@@ -1,11 +1,18 @@
 extend ../../../layouts/dashboard.pug
 block content
   h1 Thể  loại
+  input(type="hidden", name="_csrf", value=csrfToken)
   .add-category
     form
       label(for="category") Thêm thể loại &nbsp;
       input#category(type="text", name="category")
       button#add-category Thêm
-
+  #list-category
+    span Tìm kiếm
+    input(type=text, v-model="searchText")
+    p {{ searchText }}
+    ul
+      li(v-for="item in listCategories") {{ item.title }}&nbsp;
+        button(v-on:click="clickDelete(item._id)") Xóa
 block append script
   script(src="/public/js/categories.js")

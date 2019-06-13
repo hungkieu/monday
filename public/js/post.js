@@ -99,30 +99,30 @@ $(document).ready(function () {
     const title = $("#post-title").val()
     const content = quill.root.innerHTML;
     const category = $("#categories").val()
-    console.log(category)
+    console.log(content)
     if (title.trim() && content.trim() && category.trim()) {
       let formData = new FormData()
       formData.append("title", title)
       formData.append("content", content)
       formData.append("category", category)
-      $.ajax({
-        method: "post",
-        url: location.url,
-        contentType: false,
-        processData: false,
-        data: formData,
-        beforeSend: function () {
-          toastr.info("Đang gửi...", { timeOut: 0, extendedTimeOut: 0 })
-        },
-        success: function (response) {
-          toastr.remove()
-          if (response.message === "done") {
-            toastr.success("Thêm thành công")
-          } else {
-            toastr.error("Lỗi")
-          }
-        }
-      })
+      // $.ajax({
+      //   method: "post",
+      //   url: location.url,
+      //   contentType: false,
+      //   processData: false,
+      //   data: formData,
+      //   beforeSend: function () {
+      //     toastr.info("Đang gửi...", { timeOut: 0, extendedTimeOut: 0 })
+      //   },
+      //   success: function (response) {
+      //     toastr.remove()
+      //     if (response.message === "done") {
+      //       toastr.success("Thêm thành công")
+      //     } else {
+      //       toastr.error("Lỗi")
+      //     }
+      //   }
+      // })
     }
   })
 })
