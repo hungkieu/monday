@@ -15,9 +15,11 @@ module.exports.postCategory = async (req, res) => {
       title: postData.title
     })
     await newCategory.save()
-    res.send({ message: "done" })
+    res.status(200)
+    res.send({ message: "Thêm thành công" })
   } else {
-    res.send({ message: "error" })
+    res.status(500)
+    res.send({ message: "Lỗi" })
   }
 }
 
@@ -38,7 +40,9 @@ module.exports.deleteCategory = async (req, res) => {
     deleteCategory = await Categories.findByIdAndDelete(req.params.id)
   }
   catch(err) {
-    res.sendStatus(500)
+    res.status(500)
+    res.send({ message: "Lỗi" })
   }
-  res.sendStatus(200)
+  res.status(200)
+  res.send({ message: "Xóa thành công" })
 }

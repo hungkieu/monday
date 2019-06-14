@@ -60,7 +60,7 @@ adminRouters.post('/tags', upload.array(), ctl('Tags@postTag'))
 adminRouters.get('/data-tags', ctl('Tags@dataTags'))
 // Categories
 adminRouters.get('/categories', ctl('Category@categoryManager'))
-adminRouters.post('/categories', upload.array(), ctl('Category@postCategory'))
+adminRouters.post('/categories', ctl('Category@postCategory'))
 adminRouters.delete('/categories/:id', ctl('Category@deleteCategory'))
 adminRouters.get('/data-categories', ctl('Category@categoryData'))
 adminRouters.get('/search-categories', ctl('Category@searchCategories'))
