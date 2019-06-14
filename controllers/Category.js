@@ -8,18 +8,22 @@ module.exports.categoryManager = (req, res) => {
 
 module.exports.postCategory = async (req, res) => {
   const { _csrf, ...postData } = req.body
-  category = await Categories.findOne({ title: postData.title })
-
+  category = await Categories.findOne({ title: (postData.title).trim() })
+  console.log(!category)
+  console.log(!category && postData.title !== "")
   if (!category && postData.title !== "") {
     newCategory = new Categories({
       title: postData.title
     })
-    await newCategory.save()
-    res.status(200)
-    res.send({ message: "Thêm thành công" })
+    try {
+      await newCategory.save()
+      res.status(201).send({ message: "Thêm thành công" })
+    } catch(err) {
+      res.send({ message: "Lỗi" })
+    }
+
   } else {
-    res.status(500)
-    res.send({ message: "Lỗi" })
+    res.send({ message: "Thể loại trùng, hoặc để trống" })
   }
 }
 
@@ -30,19 +34,15 @@ module.exports.categoryData = async (req, res) => {
 }
 
 module.exports.searchCategories = async (req, res) => {
-  categories = await Categories.find({ title: { $regex: '.*' + req.query.p + '.*' } })
+  let categories = await Categories.find({ title: { $regex: '.*' + req.query.p + '.*' } })
   res.send({ results: categories })
 }
 
 module.exports.deleteCategory = async (req, res) => {
-  console.log(req.params.id)
   try {
-    deleteCategory = await Categories.findByIdAndDelete(req.params.id)
-  }
-  catch(err) {
-    res.status(500)
+    let deleteCategory = await Categories.findByIdAndDelete(req.params.id)
+    res.status(200).send({ message: "Xóa thành công" })
+  } catch(err) {
     res.send({ message: "Lỗi" })
   }
-  res.status(200)
-  res.send({ message: "Xóa thành công" })
 }

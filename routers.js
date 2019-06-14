@@ -50,19 +50,19 @@ adminRouters.post('/register', ctl('AdminAuth@postRegister'));
 // Logout
 adminRouters.get('/logout', ctl('AdminAuth@logout'))
 // Post
-adminRouters.get('/posts', ctl('Post@postManager'))
-adminRouters.post('/posts', upload.array(), ctl('Post@createPost'))
-adminRouters.get('/list-post', ctl('Post@listPost'))
-adminRouters.post('/list-post', upload.array(), ctl('Post@onePost'))
+adminRouters.get('/posts', logged, ctl('Post@postManager'))
+adminRouters.post('/posts', upload.array(), logged, ctl('Post@createPost'))
+adminRouters.get('/list-post', logged, ctl('Post@listPost'))
+adminRouters.post('/list-post', upload.array(), logged, ctl('Post@onePost'))
 // Tags
-adminRouters.get('/tags', ctl('Tags@tagManager'))
-adminRouters.post('/tags', upload.array(), ctl('Tags@postTag'))
-adminRouters.get('/data-tags', ctl('Tags@dataTags'))
+adminRouters.get('/tags', logged, ctl('Tags@tagManager'))
+adminRouters.post('/tags', upload.array(), logged, ctl('Tags@postTag'))
+adminRouters.get('/data-tags', logged, ctl('Tags@dataTags'))
 // Categories
-adminRouters.get('/categories', ctl('Category@categoryManager'))
-adminRouters.post('/categories', ctl('Category@postCategory'))
-adminRouters.delete('/categories/:id', ctl('Category@deleteCategory'))
-adminRouters.get('/data-categories', ctl('Category@categoryData'))
-adminRouters.get('/search-categories', ctl('Category@searchCategories'))
+adminRouters.get('/categories', logged, ctl('Category@categoryManager'))
+adminRouters.post('/categories', logged, ctl('Category@postCategory'))
+adminRouters.delete('/categories/:id', logged, ctl('Category@deleteCategory'))
+adminRouters.get('/data-categories', logged, ctl('Category@categoryData'))
+adminRouters.get('/search-categories', logged, ctl('Category@searchCategories'))
 
 module.exports = routers;

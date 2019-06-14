@@ -45,6 +45,10 @@ app.set('view engine', 'pug');
 const routers = require('./routers');
 app.use(routers);
 
+// CORS
+const cors = require("cors")
+app.use(cors())
+
 app.listen(port, () => {
   logger.log(`Start server, listening on port ${port}!`);
 });
