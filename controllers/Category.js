@@ -6,25 +6,33 @@ module.exports.categoryManager = (req, res) => {
   })
 }
 
-module.exports.postCategory = async (req, res) => {
+module.exports.postCategory = (req, res) => {
   const { _csrf, ...postData } = req.body
-  category = await Categories.findOne({ title: (postData.title).trim() })
-  console.log(!category)
-  console.log(!category && postData.title !== "")
-  if (!category && postData.title !== "") {
-    newCategory = new Categories({
-      title: postData.title
-    })
-    try {
-      await newCategory.save()
-      res.status(201).send({ message: "Thêm thành công" })
-    } catch(err) {
-      res.send({ message: "Lỗi" })
-    }
 
-  } else {
-    res.send({ message: "Thể loại trùng, hoặc để trống" })
+  if (!(postData.title).trim()) {
+    res.send({ message: "Không được để trống" })
   }
+
+  category = Categories.findOne({ title: (postData.title).trim() })
+  .then((doc) => {
+    if (doc) {
+      res.send({ message: "Thể loại trùng" })
+    } else {
+      newCategory = new Categories({
+        title: postData.title
+      })
+
+      try {
+        newCategory.save()
+        res.status(201).send({ message: "Thêm thành công" })
+      } catch(err) {
+        res.send({ message: "Lỗi" })
+      }
+    }
+  })
+  .catch(err => {
+    res.send({ message: "Lỗi" })
+  })
 }
 
 module.exports.categoryData = async (req, res) => {
