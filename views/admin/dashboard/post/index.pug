@@ -4,15 +4,21 @@ block style
   link(rel="stylesheet", href="https://cdn.quilljs.com/1.3.6/quill.snow.css")
 
 block content
-  h1 Bài đăng
-  form
-    label(for="post") Tiêu đề : &nbsp;
-    input#post-title.form-control(name="post-title", placeholder="Tiêu đề bài viết...")
-    #editor
-    label Thể  loại
-    select#categories.form-control
-    label
-    button#add-post Thêm bài viết
+  #post
+    h1 Bài đăng
+    form
+      label(for="post") Tiêu đề : &nbsp;
+      input#post-title.form-control(
+        name="post-title",
+        placeholder="Tiêu đề bài viết...",
+        v-model="title"
+      )
+      #editor
+      label Thể  loại
+      select#categories.form-control(v-model="category")
+        option(v-for="(category, index) in listCategories", v-key=index, v-bind:value="category._id") {{ category.title }}
+      label
+      button#add-post(v-on:click.prevent="createPost") Thêm bài viết
 
 block append script
   script(src="/public/js/quill.js")
