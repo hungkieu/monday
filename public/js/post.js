@@ -77,52 +77,99 @@ $(document).ready(function () {
     freeInput: true
   })
 
-  // Categories
-  $.ajax({
-    type: "get",
-    url: "/admin/data-categories",
-    success: function (response) {
-      const results = response.results
-      console.log(results)
-      let elements = `<option value="">Chọn một thể loại</option>`
-      for (item of results) {
-        console.log(item)
-        elements += `<option value="${item._id}">${item.title}</option>`
+  // Vue zone
+  const csrfToken = $('meta[name="_csrf"]').attr("content")
+  const url = "http://localhost:8080"
+  new Vue({
+    el: "#post",
+    data: {
+      title: "",
+      listCategories: [],
+      category: ""
+    },
+    methods: {
+      createPost: function() {
+        $.ajax({
+          method: "post",
+          url: url + "/admin/posts",
+          data: {
+            _csrf: csrfToken,
+            title: this.title,
+            content: quill.root.innerHTML,
+            category: this.category
+          }
+        })
+        .done(res => {
+          console.log(res)
+          this.title = ""
+        })
       }
-      $("#categories").html(elements)
+    },
+    beforeCreate: function() {
+      $.ajax({
+        method: "get",
+        url: url + "/admin/data-categories"
+      })
+      .done((res) => {
+        this.listCategories = res.results
+      })
+    },
+    watch: {
+      title: function(value) {
+        // console.log(value)
+      },
+      category: function(value) {
+        // console.log(value)
+      }
     }
   })
 
-  // Add post
-  $("#add-post").on("click", function (e) {
-    e.preventDefault();
-    const title = $("#post-title").val()
-    const content = quill.root.innerHTML;
-    const category = $("#categories").val()
-    console.log(category)
-    if (title.trim() && content.trim() && category.trim()) {
-      let formData = new FormData()
-      formData.append("title", title)
-      formData.append("content", content)
-      formData.append("category", category)
-      $.ajax({
-        method: "post",
-        url: location.url,
-        contentType: false,
-        processData: false,
-        data: formData,
-        beforeSend: function () {
-          toastr.info("Đang gửi...", { timeOut: 0, extendedTimeOut: 0 })
-        },
-        success: function (response) {
-          toastr.remove()
-          if (response.message === "done") {
-            toastr.success("Thêm thành công")
-          } else {
-            toastr.error("Lỗi")
-          }
-        }
-      })
-    }
-  })
+  // Categories
+  // $.ajax({
+  //   type: "get",
+  //   url: "/admin/data-categories",
+  //   success: function (response) {
+  //     const results = response.results
+  //     console.log(results)
+  //     let elements = `<option value="">Chọn một thể loại</option>`
+  //     for (item of results) {
+  //       console.log(item)
+  //       elements += `<option value="${item._id}">${item.title}</option>`
+  //     }
+  //     $("#categories").html(elements)
+  //   }
+  // })
+
+  // // Add post
+  // $("#add-post").on("click", function (e) {
+  //   e.preventDefault();
+  //   const title = $("#post-title").val()
+  //   const content = quill.root.innerHTML;
+  //   const category = $("#categories").val()
+  //   console.log(content)
+  //   if (title.trim() && content.trim() && category.trim()) {
+  //     let formData = new FormData()
+  //     formData.append("title", title)
+  //     formData.append("content", content)
+  //     formData.append("category", category)
+      // $.ajax({
+      //   method: "post",
+      //   url: location.url,
+      //   contentType: false,
+      //   processData: false,
+      //   data: formData,
+      //   beforeSend: function () {
+      //     toastr.info("Đang gửi...", { timeOut: 0, extendedTimeOut: 0 })
+      //   },
+      //   success: function (response) {
+      //     toastr.remove()
+      //     if (response.message === "done") {
+      //       toastr.success("Thêm thành công")
+      //     } else {
+      //       toastr.error("Lỗi")
+      //     }
+      //   }
+      // })
+  //   }
+  // })
 })
