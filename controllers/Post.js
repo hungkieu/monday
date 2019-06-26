@@ -20,9 +20,9 @@ module.exports.createPost = async (req, res) => {
       postBy: userId
     })
     await newPost.save()
-    res.send({ message: "done" })
+    res.status(201).send({ message: "Thêm thành công" })
   } else {
-    res.send({ message: "error" })
+    res.send({ message: "Lỗi" })
   }
 }
 

@@ -46,8 +46,19 @@ const routers = require('./routers');
 app.use(routers);
 
 // CORS
-const cors = require("cors")
-app.use(cors())
+// const cors = require('cors')
+// const whiteList = ['*']
+// const corsOptions = {
+//     origin: function(origin, callback) {
+//       if (whiteList.indexOf(origin) !== -1) {
+//         callback(null, true)
+//       } else {
+//         callback(new Error('Not allowed by CORS'))
+//       }
+//     },
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+// }
+// app.use(cors(corsOptions))
 
 app.listen(port, () => {
   logger.log(`Start server, listening on port ${port}!`);
